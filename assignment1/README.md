@@ -39,10 +39,11 @@ For this assignment, we will use Mininet to emulate the topology shown above, an
 ## Task 0: Setup the VM
 In assignment 0, you used `vagrant` to setup the VM. For this assignment, we need to install a few missing dependencies on our VM.
 1. Run a ```git pull``` in the directory to get any new commits
-2. Enter the directory containing the Vagrantfile for your VM.
+2. Enter the ```assignment0``` directory containing the Vagrantfile for your VM.
 3. Turn on the VM ```vagrant up```
 4. Log into the VM ```vagrant ssh```
-5. After logging in, run the provided setup script (```./setup.sh```) on your VM and wait for the installation to finish.
+5. After logging in, clone this repo (cs176b-assignments) onto your VM and cd into the ```assignment1``` directory.
+6. Run the provided setup script (```./setup.sh```) on your VM and wait for the installation to finish.
 
 ## Task 1: Create Network Topology.
 The goal of this task is to write the Python script that uses Mininet to emulate the topology shown above. For your convenience, we have provided a template file, [`start_mininet.py`](#) that you can edit. 
