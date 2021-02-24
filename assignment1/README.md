@@ -144,5 +144,9 @@ The following are the deliverables for this assignment:
 * `monitor_receive.py`
 * 3 graphs for Case 1, 2, 3
 
+Please send these deliverables to the teaching staff, Sanjay, over email. Please cc Arpit and Jiamo to that email.  
+
+In case you tried to solve the bonus point problems, then please send us a small writeup explaining how you implemented and tested the new features. 
+
 
 
