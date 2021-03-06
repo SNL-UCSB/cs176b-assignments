@@ -81,6 +81,8 @@ For your convenience, we have provided an overview of the directory structure fo
 └── ...                  # Other convenience scripts
 ```
 
+-----
+-----
 ## Tasks
 ### Task 0: Setup VM
 Follow the steps below to setup the VM for Assignment 2:
@@ -146,7 +148,7 @@ mininet> dump
 ```
 The `dump` command displays the IP addresses of different interfaces in different hosts. E.g., we can see that `h1`'s `eth0` interface has the IP `10.0.3.1`. Similarly, the IP address for host `h2` is `10.0.3.2`.
 
-
+-----
 ### Task 1: Observing queue buildup with passive monitoring
 For the first task, you will modify the current setup to support passive monitoring.
 
@@ -174,12 +176,12 @@ Congratulations! Now, your switch is ready to perform passive-monitoring. You ca
 * `monitor-output.txt` -- This log file contains output from the [monitor-receive.py][mr] script running on the `monitor` node.
 * `switch_stats.csv` -- This csv file consists of the columns `time` -- the time at which the monitor receives the cloned packet, `swid` -- the switch experiencing congestion, and `qdepth` -- the queue depth at the switch. You will need this csv file in the [Task 1b](#Task-1b).
 
-Note - Please wait for 30 seconds for the experiment to finish.
+**Note** - Please wait for 30 seconds for the experiment to finish.
 
 #### Task 1b
 In this task you will modify the [graph_queues.py][gq] script to parse the `switch_stats.csv` file. You must store the values in the three lists defined in the python script. By running the plotting script, you should get a visual confirmation of the congestion in the network.
 
-
+-----
 ### Task 2: Changing forwarding rules at runtime
 The goal of the second task is to overcome the congestion detected in Task 1. In this task, you will write a script that modifies the forwarding rules with runtime commands when congestion is detected. More precisely, to alleviate congestion, the new forwarding rules should send 
 * the traffic `h2-->h3` along the route `s3-->s1-->s4`
@@ -193,7 +195,7 @@ Please follow the guidelines below to complete this task:
 * Modify the [monitor-receive.py][mr] script such that instead of `handle_pkt_1`, the function `handle_pkt_2` is called on each sniffed packet.
 * `trigger_reprogram` function copies the `sX-runtime-init.json` files and creates `sX-runtime.json` files. Your task is to modify the `sX-runtime.json` files programmatically to enforce the new routing policy.
 
-TIP: Recall that we covered the forwarding table entry structure in the section about [P4Runtime](#What-is-P4Runtime-What-are-runtime-commands). Also recall the useful mininet commands we discussed in the section [Mininet commands](#Mininet-commands).
+**TIP:** Recall that we covered the forwarding table entry structure in the section about [P4Runtime](#What-is-P4Runtime-What-are-runtime-commands). Also recall the useful mininet commands we discussed in the section [Mininet commands](#Mininet-commands).
 
 At long last, you have finished the Assignment 2! Now, if you execute `make`, you should see:
 * The file `logs/monitor-output.txt` indicates that the monitor is successfully able to change the switch table entries at runtime. You will also observe that the monitor sees only `2-5` monitoring packets across the whole experiment. This shows that congestion occurred for a short period which was ultimately resolved.
