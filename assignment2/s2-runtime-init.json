@@ -1,0 +1,57 @@
+{
+  "target": "bmv2",
+  "p4info": "build/switch.p4.p4info.txt",
+  "bmv2_json": "build/switch.json",
+  "table_entries": [
+    {
+      "table": "MyEgress.out_header",
+      "default_action": true,
+      "action_name": "MyEgress.add_out_header",
+      "action_params": {
+         "swid": 2
+       }
+    },
+    {
+      "table": "MyIngress.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.3.0", 24]
+      },
+      "action_name": "MyIngress.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:03:00",
+        "port": 1
+      }
+    },
+    {
+      "table": "MyIngress.ipv4_lpm",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.4.0", 24]
+      },
+      "action_name": "MyIngress.ipv4_forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:04:00",
+        "port": 2
+      }
+    },
+    {
+      "table": "MyEgress.clone_pkt",
+      "match": {
+        "hdr.ipv4.protocol": 17
+      },
+      "action_name": "MyEgress.do_clone_e2e",
+      "action_params": {}
+    }      
+  ],
+  "clone_session_entries" : [
+  {
+      "clone_session_id" : 432,
+      "replicas" : [
+      {
+      "egress_port" : 3,
+      "instance" : 2
+      }
+    ]
+  }
+  ]
+}
+    
