@@ -181,6 +181,9 @@ Congratulations! Now, your switch is ready to perform passive-monitoring. You ca
 #### Task 1b
 In this task you will modify the [graph_queues.py][gq] script to parse the `switch_stats.csv` file. You must store the values in the three lists defined in the python script. By running the plotting script, you should get a visual confirmation of the congestion in the network.
 
+Shown below is a sample graph for this task. Note that the actual graph may differ sligthly from the sample graph.
+![sample graph](https://github.com/SNL-UCSB/cs176b-assignments/blob/master/assignment2/queue_graph.png)
+
 -----
 ### Task 2: Changing forwarding rules at runtime
 The goal of the second task is to overcome the congestion detected in Task 1. In this task, you will write a script that modifies the forwarding rules with runtime commands when congestion is detected. More precisely, to alleviate congestion, the new forwarding rules should send 
