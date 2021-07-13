@@ -18,7 +18,7 @@ The topology for this assignment is similar to the one in Assignment 1 except, t
 There is a constant bandwidth (~500 Kbps) UDP traffic from `h2` to `h3` and from `h1` to `h4`. The traffic `h2-->h3` starts at `t=0` and ends at `t=20`. The traffic `h1-->h4` starts at `t=5` and ends at `t=15`.
 
 ## Initial routing policy
-All the traffic between `h1-->h4` and `h2-->h3` takes the route `s3-->s1-->s2-->s4`. In other words, routing policy does not uses the link `s1-s4`. Note that this initial routing policy is specified in the `sX-runtime-init.json` files.
+All the traffic between `h1-->h4` and `h2-->h3` takes the route `s3-->s1-->s2-->s4`. In other words, the routing policy does not use the link `s1-s4`. Note that this initial routing policy is specified in the `sX-runtime-init.json` files.
 
 ## What is Passive Monitoring?
 Passive monitoring is a technique used to capture traffic and other statistics from network in a non-disruptive fashion. In contrast to active monitoring, it does not actively sends a measurement probe, and monitors the network passively. 
