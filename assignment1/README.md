@@ -66,7 +66,7 @@ monitor -> X X X X
 
 ***
 
-## Task 2: Configure pcket-processing pipelines
+## Task 2: Configure packet-processing pipelines
 The goal of this task is to use the P4 language to configure the packet processing pipelines for the four switches (S1-S4). In addition to packet forwarding, these switches perform in-network telemetry. More concretely, they detect probe packets with a custom IP header, and add the state of the switch, i.e., `swid` and `queue_size` to a duplicated packet that is forwarded to the network monitor. 
 
 
