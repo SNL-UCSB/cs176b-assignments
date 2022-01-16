@@ -88,6 +88,11 @@ download the course files from GitHub.
 
 `cd cs176b-assignments/` to enter the course assignment directory.
 
+## Step 6: Setting up virtual machine to work with Vagrant
+Please follow the instructions in the following link:
+
+https://hackmd.io/8qTUafERSOKzoV-QEzyK9A?view
+<!---
 ## Step 6: Provision virtual machine using Vagrant
 
 `cd cs176b-assignments/assignment0` directory, run the command  `vagrant
@@ -116,7 +121,7 @@ status of your VM and power it on/off or save its state. It is not recommended
 to use it, however, since it is not integrated with Vagrant, and typing
 commands should be no slower. It is also not an alternative to the initial
 `vagrant up` since this creates the VM.
-
+-->
 ## Step 7: Test SSH to VM
 
 **macOS & Linux:**
