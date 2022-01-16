@@ -16,10 +16,13 @@ Vagrant is a tool for automatically configuring a VM using instructions given in
 
 **Windows only**: You will be asked to restart your computer at the end of the installation. Click Yes to do so right away, or restart manually later, but don't forget to do so or Vagrant will not work!
 
-**Linux:** First, make sure your package installer is up to date by running the
+**Linux:** 
+Using package manager: First, make sure your package installer is up to date by running the
 command `sudo apt-get update`. To install Vagrant, you must have the *Universe*
 repository on your computer; run `sudo apt-add-repository universe` to add it.
 Finally, run `sudo apt-get install vagrant` to install vagrant.
+***OR***
+Using Binary: Remove any pervious version of vagrant installed by using the command `sudo apt --purge remove vagrant`. Download the binary file from https://www.vagrantup.com/downloads and extract it. Make shortcut to Run Vagrant by adding `alias vagrant='~/Downloads/vagrant_2.2.19_linux_amd64/vagrant'` to last line in ~/.bashrc file. Note: To edit bashrc type nano ~/.bashrc in termianl. If you have placed the vagrant binary in another loctaion(instead of ~/Downloads) use that path in the alias command.
 
 ## Step 2: Install VirtualBox
 
@@ -80,11 +83,16 @@ Use default options and uncheck "Launch Xming" at the end.
 Open your terminal (use git bash if using Windows) and `cd`
 to wherever you want to keep files for this course on your computer.  
 
-Run `git clone https://github.com/agupta13/cs176b-assignments.git` to
+Run `git clone https://github.com/SNL-UCSB/cs176b-assignments.git` to
 download the course files from GitHub.
 
 `cd cs176b-assignments/` to enter the course assignment directory.
 
+## Step 6: Setting up virtual machine to work with Vagrant
+Please follow the instructions in the following link:
+
+https://hackmd.io/8qTUafERSOKzoV-QEzyK9A?view
+<!---
 ## Step 6: Provision virtual machine using Vagrant
 
 `cd cs176b-assignments/assignment0` directory, run the command  `vagrant
@@ -113,7 +121,7 @@ status of your VM and power it on/off or save its state. It is not recommended
 to use it, however, since it is not integrated with Vagrant, and typing
 commands should be no slower. It is also not an alternative to the initial
 `vagrant up` since this creates the VM.
-
+-->
 ## Step 7: Test SSH to VM
 
 **macOS & Linux:**
