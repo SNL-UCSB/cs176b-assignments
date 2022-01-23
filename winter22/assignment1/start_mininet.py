@@ -17,6 +17,7 @@ from mininet.link import Intf, TCIntf
 import math
 
 import os
+import subprocess
 
 from p4runtime_switch import P4RuntimeSwitch
 import p4runtime_lib.simple_controller
@@ -70,6 +71,28 @@ def program_switch_p4runtime(net, sw_name):
             workdir=os.getcwd(),
             proto_dump_fpath=outfile)
 
+
+def add_congestion_s1_s2(pps):
+    info("*** Adding congestion at link s1-s2\n")
+    with open(os.devnull, 'w') as fp:
+        switch_cli = subprocess.Popen(["simple_switch_CLI", "--thrift-port", "9996"], stdin=subprocess.PIPE, stdout=fp, stderr=fp)
+        switch_cli.communicate(input="set_queue_rate {} 1".format(int(pps)))
+    return
+
+def add_congestion_s1_s3(pps):
+    info("*** Adding congestion at link s1-s3\n")
+    with open(os.devnull, 'w') as fp:
+        switch_cli = subprocess.Popen(["simple_switch_CLI", "--thrift-port", "9998"], stdin=subprocess.PIPE, stdout=fp, stderr=fp)
+        switch_cli.communicate(input="set_queue_rate {} 1".format(int(pps)))
+    return
+
+def add_congestion_s2_s4(pps):
+    info("*** Adding congestion at link s2-s4\n")
+    with open(os.devnull, 'w') as fp:
+        switch_cli = subprocess.Popen(["simple_switch_CLI", "--thrift-port", "9997"], stdin=subprocess.PIPE, stdout=fp, stderr=fp)
+        switch_cli.communicate(input="set_queue_rate {} 2".format(int(pps)))
+    return
+
     
 class CoreP4Topo(Topo):
     host_objects = []
@@ -80,10 +103,10 @@ class CoreP4Topo(Topo):
 
 
         # These are the core P4 switches of the network
-        switch1 = self.addSwitch('s1')
-        switch2 = self.addSwitch('s2')
-        switch3 = self.addSwitch('s3')
-        switch4 = self.addSwitch('s4')
+        switch1 = self.addSwitch('s1', thrift_port=9996)
+        switch2 = self.addSwitch('s2', thrift_port=9997)
+        switch3 = self.addSwitch('s3', thrift_port=9998)
+        switch4 = self.addSwitch('s4', thrift_port=9999)
 
         # These are the end hosts in the network
         host1 = self.addHost('h1', ip='10.0.3.1/31', mac='08:00:00:00:03:01')
@@ -160,18 +183,20 @@ if __name__ == '__main__':
     program_switch_p4runtime(net, 's2')
     program_switch_p4runtime(net, 's3')
     program_switch_p4runtime(net, 's4')
+    
+    # add_congestion_s1_s2(pps=0)
+    # add_congestion_s1_s3(pps=0)
+    # add_congestion_s2_s4(pps=0)
 
     ### Network Experiments ###
     def experiment():
-
-        # TODO: update working_dir based on where you place these files
-        working_dir = '/home/vagrant/cs176b-assignments-private/assignment1'
+        working_dir = '/home/vagrant/cs176b-assignments/winter22/assignment1'
         
         h3.cmd('iperf -s > {}/logs/h3-output.txt &'.format(working_dir))
-        h2.cmd('iperf -c 10.0.4.3 > {}/logs/h2-output.txt &')
-        monitor.cmd('{}/monitor_receive.py > {}/monitor-output.txt &'.format(working_dir,working_dir))
-        h4.cmd('{}/receive.py > {}/h4-output.txt &'.format(working_dir, working_dir))      
-        h1.cmd('{}/client_send.py {} 1000 > {}/h1-output.txt &'.format(working_dir,h4.IP(),working_dir))
+        h2.cmd('iperf -c 10.0.4.3 > {}/logs/h2-output.txt &'.format(working_dir))
+        monitor.cmd('{}/monitor_receive.py > {}/logs/monitor-output.txt &'.format(working_dir,working_dir))
+        h4.cmd('{}/receive.py > {}/logs/h4-output.txt &'.format(working_dir, working_dir))
+        h1.cmd('{}/client_send.py {} 80 > {}/logs/h1-output.txt &'.format(working_dir,h4.IP(),working_dir))
         
         return
 
@@ -180,7 +205,7 @@ if __name__ == '__main__':
     # Run Experiment Here
     # experiment()
     
-    info( "*** Hosts are running and should have internet connectivity\n" )
+    info( "*** Hosts are running\n" )
     info( "*** Type 'exit' or control-D to shut down network\n" )
     CLI( net )
     # Shut down NAT

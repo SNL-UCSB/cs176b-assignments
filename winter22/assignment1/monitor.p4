@@ -7,7 +7,7 @@ const bit<16> TYPE_IPV4 = 0x800;
 const bit<5>  IPV4_OPTION_SI = 31;
 
 #define MAX_HOPS 9
-#define queue_threshold 5
+#define queue_threshold 10
 
 /*************************************************************************
 *********************** H E A D E R S  ***********************************

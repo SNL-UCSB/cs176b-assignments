@@ -47,19 +47,13 @@ def main():
 
     src_port = random.randrange(1024,30000)
     dst_port = random.randrange(1024,30000)
-    payload = os.urandom(1000)
     
     pkt = Ether(src=get_if_hwaddr(iface), dst="ff:ff:ff:ff:ff:ff") / IP(
-        dst=addr, options = IPOption_SI(count=0, swtraces=[])) / UDP(dport=random.randrange(1024,30000), sport=random.randrange(1024,30000)) / payload
+        dst=addr, options = IPOption_SI(count=0, swtraces=[])) / UDP(dport=random.randrange(1024,30000), sport=random.randrange(1024,30000))
 
     pkt.show2()
     try:
-      for i in range(int(sys.argv[2])):
-	pkts = []
-	for j in range(int(100)):
-		pkts.append(pkt)	
-        sendp(pkts, iface=iface)
-        sleep(1)
+        sendp(pkt, iface=iface, loop=1)
     except KeyboardInterrupt:
         raise
 

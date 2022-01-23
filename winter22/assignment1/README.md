@@ -37,24 +37,26 @@ The monitor host only receives and processes the headers of each packet. If any 
 For this assignment, we will use Mininet to emulate the topology shown above, and use P4 language to configure the packet processing pipelines for the software switches. 
 
 ## Task 0: Setup the VM
-In assignment 0, you used `vagrant` to setup the VM. For this assignment, we need to install a few missing dependencies on our VM.
-1. Run a ```git pull``` in the directory to get any new commits
-2. Enter the ```assignment0``` directory containing the Vagrantfile for your VM.
-3. Turn on the VM ```vagrant up```
-4. Log into the VM ```vagrant ssh```
-5. After logging in, clone this repo (cs176b-assignments) onto your VM and cd into the ```assignment1``` directory.
-6. Run the provided setup script (```./setup.sh```) on your VM and wait for the installation to finish.
+In assignment 0, you used `virtualbox` and `vagrant` to setup the VM. For this assignment, we need to install a few missing dependencies on our VM.
+1. Enter the directory containing the Vagrantfile.
+2. Turn on the VM `vagrant up`.
+3. Log into the VM `vagrant ssh`.
+4. After logging in to the VM, go to the assignments directory `cd ~/cs176b-assignments`.
+5. Run a `git pull` in the directory to get any new commits.
+6. Remove old files `sudo rm -rf assignment1`.
+8. cd into the directory for this assignment `cd ~/cs176b-assignments/winter22/assignment1`.
+<!-- Run the provided setup script (`./setup.sh`) on your VM and wait for the installation to finish. -->
 
 ## Task 1: Create Network Topology.
 The goal of this task is to write the Python script that uses Mininet to emulate the topology shown above. For your convenience, we have provided a template file, [`start_mininet.py`](#) that you can edit. 
 
-You can run this file using the `Makefile` provided for you. This file takes care of compiling your P4 program and running `start_mininet.py`. The `Makefile` prints out and executes the commands needed to be run, to compile your P4 program and start Mininet. You can use these commands to compile your P4 program separately or start Mininet without recompiling your P4 program.
+You can run this file using the `Makefile` provided for you. To run the commands in the `Makefile`, run `make` in the assignment directory. This file takes care of compiling your P4 program and running `start_mininet.py`. The `Makefile` prints out and executes the commands needed to be run, to compile your P4 program and start Mininet. You can use these commands to compile your P4 program separately or start Mininet without recompiling your P4 program. Once the mininet is started (look for `mininet>` prompt), you can use `Ctrl + d` to exit.
 
-The file that we provided is not complete. Thus, when you try running the command `pingall`, it won't work. Your task is to add the necessary links to realize the topology shown above. We've set the default link type in Mininet as `TCLink`, this allows us to modify characteristics of the link such as bandwidth, delay, loss, and queue size. For your reference, we have provided `TODO` comments for you in the `init()` function of the `CoreP4Topo` class. Make sure to add the links in the specified order for traffic to be routed correctly. 
+The file that we provided is not complete. Thus, when you try running the command `pingall 1` (1 second is the timeout for the ping) in the mininet prompt, it won't work. Your task is to add the necessary links to realize the topology shown above. We've set the default link type in Mininet as `TCLink`, this allows us to modify characteristics of the link such as bandwidth, delay, loss, and queue size. For your reference, we have provided `TODO` comments for you in the `init()` function of the `CoreP4Topo` class in the `start_mininet.py` module. Make sure to add the links in the specified order for traffic to be routed correctly. 
 
-To check if you have added all the missing links correctly, you can run the `pingall` command. On successful completion, you should expect to see that all the hosts are able to ping each other. The monitor will not respond correctly to pings from the other hosts, since it is just a sink to receive packets. You will see an `X` for each host when it tries to ping the monitor. After waiting for the full duration of the `pingall` test you should see the following output: 
+To check if you have added all the missing links correctly, you can run the `pingall 1` command. On successful completion, you should expect to see that all the hosts are able to ping each other. The monitor will not respond correctly to pings from the other hosts, since it is just a sink to receive packets. You will see an `X` for each host when it tries to ping the monitor. After waiting for the full duration of the `pingall` test you should see the following output: 
 ```
-mininet> pingall
+mininet> pingall 1
 *** Ping: testing ping reachability
 h1 -> h2 h3 h4 X 
 h2 -> h1 h3 h4 X 
@@ -64,10 +66,9 @@ monitor -> X X X X
 *** Results: 40% dropped (12/20 received)
 ```
 
-***
 
 ## Task 2: Configure packet-processing pipelines
-The goal of this task is to use the P4 language to configure the packet processing pipelines for the four switches (S1-S4). In addition to packet forwarding, these switches perform in-network telemetry. More concretely, they detect probe packets with a custom IP header, and add the state of the switch, i.e., `swid` and `queue_size` to a duplicated packet that is forwarded to the network monitor. 
+The goal of this task is to use the P4 language to configure the packet processing pipelines for the four switches (S1-S4). In addition to packet forwarding, these switches perform in-network telemetry. More concretely, they detect probe packets with a custom IP header, and add the state of the switch, i.e., `swid` (stands for Switch ID) and `queue_size` to a duplicated packet that is forwarded to the network monitor. 
 
 
 
@@ -78,7 +79,7 @@ The packet processing pipelines at these switches perform the following tasks. I
 
 
 
-For your convenience, we have provided the template file, `monitor.p4`. Please fill in the TODO comments in the ingress and egress processing part of the pipelines. Please refer to Case 0 in the experiment section below to test your P4 implementation. The .json files for each switch specify the control plane configuration that each switch will operate off of. Refer to these files to find the relevant Session ID to use when cloning packets.
+For your convenience, we have provided the template file, `monitor.p4`. Please fill in the TODO comments in the ingress and egress processing part of the pipelines. Please refer to Task 0 in the "Measuring Network's State" section below to test your P4 implementation. The .json files for each switch specify the control plane configuration that each switch will operate off of. Refer to these files to find the relevant Session ID to use when cloning packets.
 
 **Note**
 This task has some similarities with the [Multi-hop route inspector (MRI)](https://github.com/p4lang/tutorials/tree/master/exercises/mri) tutorial. However, unlike MRI, it clones the probe packets, adds the queue size information for just one switch, and compares the queue size value with a threshold value before sending it to the monitor. 
@@ -89,18 +90,19 @@ We encourage the interested students to further optimize the packet processing p
 * The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from memory, and write it to packet's metadata. (40 points)
 * The current pipeline can only add the queue size information to specialized probe packets. Thus, the queue size information can only be actively probed from the network. Enabling passive monitoring of queue sizes is more desirable, where for every incoming packet, it reads the queue size and report the ones that exceed the threshold to the monitor. Thus, one bonus task will be to enable passive monitoring for these switches. (40 points)
 
-***
+<!-- Implement the `handle_pkt` function in the `monitor_receive.py` module, which will handle packets being received on each of the monitor's interfaces. Currently, the function just prints out the contents of each packet received. We want to extract the switch ID and queue size from each packet. We can then write these values to a CSV file with the following format:
+```time, switch_id, queue_size```
+ -->
 
 ## Task 3
 ### Use Python to write data processing and analysis scripts
 In this task you will write Python code for the monitor to receive and process the SI headers that are reporting the queue size at each switch.
-Implement the `handle_pkt` function in `monitor_receive.py` which will handle packets being received on each of the monitor's interfaces. Currently, the function just prints out the contents of each packet received. We want to extract the switch ID and queue size from each packet. We can then write these values to a CSV file with the following format:
+The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. Currently, the function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file with the following format:
+
 ```time, switch_id, queue_size```
-Then implement `graph_queues.py` which reads in this CSV file and plots the queue size over time for each switch. Please label the axes appropriately and add a title to your graph.
 
-***
+Then, implement `graph_queues.py` which reads in this CSV file and plots the queue size over time for each switch. Please label the axes appropriately and add a title to your graph.
 
-***
 
 # Part 2: Measuring Network's State
 <!--Overview.
@@ -110,13 +112,18 @@ For each case, clarify
 - What specific changes in network configuration are required to run the experiment?
 - What specific metrics they need to collect/plot/analyze?
 -->
-The goal of the experiments is to observe how different bottleneck links affect where and when the queue size is building up with the presence of backgroud iperf traffic. Each experiment should take about 5 minutes to complete. You can check whether the iperf session has finished by inspecting the client's log file.
+The goal of the experiments is to observe how different bottleneck links affect where and when the queue size is building up with the presence of backgroud iperf traffic. Each experiment should take about 2 minutes to complete. You can check whether the iperf session has finished by inspecting the client's log file.
 
 ## Task 0: Testing out P4 Program
-For these experiments we will be generating tcp traffic using iperf between h1 and h4. We will change the capacity of certain links and observe how the behavior changes. First, we will test out sending traffic between the hosts with unconstrained links. Set the queue threshold in monitor.p4 to 0 for now, since the links are not constrained. Uncomment the call to `experiment()` in `start_mininet.py`. You should be able to view the output from each host in the `logs` directory. On h4 we will run `./start_server.py` and on h1 we will run `./start_client.py`. We will be running background iperf traffic between hosts h2 and h3. The monitor and h4 will be running `monitor_receive.py` and `receive.py` respectively, which will listen and log packets that arrive at that host. Remember, you can open terminal windows for each host using `xterm h1 h2 ...` for debugging purposes, however, this may become tedious over time. We can programatically run commands on each host using the `cmd()` command as we have done in the `experiment()` function. Make sure to properly indicate the path of the scripts that are being executed. If your P4 program is working correctly, you should be able to see packets in the monitor's log displaying the switch ID and queue size over time. Once you have verified your P4 implementation is correctly adding SI headers, change `queue_threshold` back to a value of 10.
+For these experiments we will be generating tcp traffic using `iperf` between h1 and h4. We will change the capacity of certain links and observe how the behavior changes. First, we will test out sending traffic between the hosts with unconstrained links. Set the queue threshold in monitor.p4 to 0 for now, since the links are not constrained. Uncomment the call to `experiment()` in `start_mininet.py`. You should be able to view the output from each host in the `logs` directory. 
+
+The `experiment` function will run `receive.py` on h4 and `client_send.py` on h1. It will also run a background `iperf` traffic between the hosts h2 and h3. The monitor will be running `monitor_receive.py`, which will listen and log packets that arrive at that host. Remember, you can open terminal windows for each host using `xterm h1 h2 ...` for debugging purposes. However, this may become tedious over time. We programatically run commands on each host using the `hx.cmd()` command as we have done in the `experiment()` function. 
+
+If your P4 program is working correctly, when you run `make`, you should be able to see packets in the monitor's log displaying the switch ID and queue size over time. Once you have verified your P4 implementation is correctly adding the SI headers, change `queue_threshold` back to a value of 10.
 
 ## Task 1: Reduced capacity for S1-S3
-Set the bandwidth of the S1-S3 link to 200 Kbps.
+Uncomment the function call `add_congestion_s1_s3(pps)` in the `start_mininet.py` module. Set the `pps` (packets per second) argument such that the bandwidth of the S1-S3 link is about 200 Kbps for packets of size 1500 bytes (typical MTU size).
+
 For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. The goal of this experiment is to investigate where and when the queue size at any switch exceeds the `queue_threshold`. After logging the data with `monitor_receive.py`, use `graph_queues.py` to graph the queue size of each switch over time. Repeat the same analysis for Case 2 & 3.
 <!--
 (Just some possible ideas)
@@ -128,23 +135,25 @@ For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. Th
 -->
 
 ## Task 2: Reduced capactiy for S1-S2 and S1-S3
-Set the bandwidth of the S1-S2 link to 100 Kbps.
-Set the bandwidth of the S1-S3 link to 200 Kbps.
+* Set the bandwidth of the S1-S2 link to 100 Kbps.
+* Set the bandwidth of the S1-S3 link to 200 Kbps.
 
 
 ## Task 3: Reduced cpacity for S1-S2, S1-S3, and S2-S4
-Set the bandwidth of the S1-S2 link to 100 Kbps.
-Set the bandwidth of the S1-S3 link to 200 Kbps.
-Set the bandwidth of the S2-S4 link to 200 Kbps.
+* Set the bandwidth of the S1-S2 link to 100 Kbps.
+* Set the bandwidth of the S1-S3 link to 200 Kbps.
+* Set the bandwidth of the S2-S4 link to 200 Kbps.
+
+**PS**: For consistent results, wait for at least 2 minutes before stopping the experiment. Also, run `make clean` before starting a new experiment.
 
 # Deliverables
 The following are the deliverables for this assignment:
 * `start_mininet.py`
 * `monitor.p4`
 * `monitor_receive.py`
-* 3 graphs for Case 1, 2, 3
+* 3 graphs for Tasks 1, 2, 3
 
-Please send these deliverables to the teaching staff, Sanjay, over email. Please cc Arpit and Jiamo to that email.  
+Please send these deliverables to the teaching staff, Rohan, over email. Please cc Arpit and Punnal to that email.  
 
 In case you tried to solve the bonus point problems, then please send us a small writeup explaining how you implemented and tested the new features. 
 
