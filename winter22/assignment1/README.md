@@ -37,13 +37,13 @@ The monitor host only receives and processes the headers of each packet. If any 
 For this assignment, we will use Mininet to emulate the topology shown above, and use P4 language to configure the packet processing pipelines for the software switches. 
 
 ## Task 0: Setup the VM
-In assignment 0, you used `virtualbox` and `vagrant` to setup the VM. For this assignment, we need to install a few missing dependencies on our VM.
+In assignment 0, you used `virtualbox` and `vagrant` to setup the VM. For this assignment, we will setup the assignment 1 code on the VM.
 1. Enter the directory containing the Vagrantfile.
 2. Turn on the VM `vagrant up`.
 3. Log into the VM `vagrant ssh`.
 4. After logging in to the VM, go to the assignments directory `cd ~/cs176b-assignments`.
 5. Run a `git pull` in the directory to get any new commits.
-6. Remove old files `sudo rm -rf assignment1`.
+6. Remove old files `sudo rm -rf ~/cs176b-assignments/assignment1`.
 8. cd into the directory for this assignment `cd ~/cs176b-assignments/winter22/assignment1`.
 <!-- Run the provided setup script (`./setup.sh`) on your VM and wait for the installation to finish. -->
 
@@ -97,11 +97,11 @@ We encourage the interested students to further optimize the packet processing p
 ## Task 3
 ### Use Python to write data processing and analysis scripts
 In this task you will write Python code for the monitor to receive and process the SI headers that are reporting the queue size at each switch.
-The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. Currently, the function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file with the following format:
+The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. The function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file with the following format:
 
 ```time, switch_id, queue_size```
 
-Then, implement `graph_queues.py` which reads in this CSV file and plots the queue size over time for each switch. Please label the axes appropriately and add a title to your graph.
+You have to implement `graph_queues.py` which reads in this CSV file and plots the queue size over time for each switch. Please label the axes appropriately and add a title to your graph.
 
 
 # Part 2: Measuring Network's State
@@ -115,7 +115,7 @@ For each case, clarify
 The goal of the experiments is to observe how different bottleneck links affect where and when the queue size is building up with the presence of backgroud iperf traffic. Each experiment should take about 2-3 minutes to complete. You can check whether the iperf session has finished by inspecting the client's log file.
 
 ## Task 0: Testing out P4 Program
-For these experiments we will be generating tcp traffic using `iperf` between h1 and h4. We will change the capacity of certain links and observe how the behavior changes. First, we will test out sending traffic between the hosts with unconstrained links. Set the queue threshold in monitor.p4 to 0 for now, since the links are not constrained. Uncomment the call to `experiment()` in `start_mininet.py`. You should be able to view the output from each host in the `logs` directory. 
+For these experiments we will be generating tcp traffic using `iperf` between h1 and h4. We will change the capacity of certain links and observe how the behavior changes. First, we will test out sending traffic between the hosts with unconstrained links. Set the queue threshold in `monitor.p4` to 0 for now, since the links are not constrained. Uncomment the call to `experiment()` in `start_mininet.py`. You should be able to view the output from each host in the `logs` directory. 
 
 The `experiment` function will run `receive.py` on h4 and `client_send.py` on h1. It will also run a background `iperf` traffic between the hosts h2 and h3. The monitor will be running `monitor_receive.py`, which will listen and log packets that arrive at that host. Remember, you can open terminal windows for each host using `xterm h1 h2 ...` for debugging purposes. However, this may become tedious over time. We programatically run commands on each host using the `hx.cmd()` command as we have done in the `experiment()` function. 
 
