@@ -112,7 +112,7 @@ For each case, clarify
 - What specific changes in network configuration are required to run the experiment?
 - What specific metrics they need to collect/plot/analyze?
 -->
-The goal of the experiments is to observe how different bottleneck links affect where and when the queue size is building up with the presence of backgroud iperf traffic. Each experiment should take about 2 minutes to complete. You can check whether the iperf session has finished by inspecting the client's log file.
+The goal of the experiments is to observe how different bottleneck links affect where and when the queue size is building up with the presence of backgroud iperf traffic. Each experiment should take about 2-3 minutes to complete. You can check whether the iperf session has finished by inspecting the client's log file.
 
 ## Task 0: Testing out P4 Program
 For these experiments we will be generating tcp traffic using `iperf` between h1 and h4. We will change the capacity of certain links and observe how the behavior changes. First, we will test out sending traffic between the hosts with unconstrained links. Set the queue threshold in monitor.p4 to 0 for now, since the links are not constrained. Uncomment the call to `experiment()` in `start_mininet.py`. You should be able to view the output from each host in the `logs` directory. 
@@ -133,7 +133,7 @@ For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. Th
 - The variance of waiting time
 - Ratio of waiting time before and after changes VS ratio of changes in bandwidth
 -->
-
+<!-- 
 ## Task 2: Reduced capactiy for S1-S2 and S1-S3
 * Set the bandwidth of the S1-S2 link to 100 Kbps.
 * Set the bandwidth of the S1-S3 link to 200 Kbps.
@@ -142,7 +142,7 @@ For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. Th
 ## Task 3: Reduced cpacity for S1-S2, S1-S3, and S2-S4
 * Set the bandwidth of the S1-S2 link to 100 Kbps.
 * Set the bandwidth of the S1-S3 link to 200 Kbps.
-* Set the bandwidth of the S2-S4 link to 200 Kbps.
+* Set the bandwidth of the S2-S4 link to 200 Kbps. -->
 
 **PS**: For consistent results, wait for at least 2 minutes before stopping the experiment. Also, run `make clean` before starting a new experiment.
 
@@ -151,7 +151,7 @@ The following are the deliverables for this assignment:
 * `start_mininet.py`
 * `monitor.p4`
 * `monitor_receive.py`
-* 3 graphs for Tasks 1, 2, 3
+* Graph for Task 1
 
 Please send these deliverables to the teaching staff, Rohan, over email. Please cc Arpit and Punnal to that email.  
 
