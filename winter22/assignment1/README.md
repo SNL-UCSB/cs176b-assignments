@@ -124,7 +124,7 @@ If your P4 program is working correctly, when you run `make`, you should be able
 ## Task 1: Reduced capacity for S1-S3
 Uncomment the function call `add_congestion_s1_s3(pps)` in the `start_mininet.py` module. Set the `pps` (packets per second) argument such that the bandwidth of the S1-S3 link is about 200 Kbps for packets of size 1500 bytes (typical MTU size).
 
-For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. The goal of this experiment is to investigate where and when the queue size at any switch exceeds the `queue_threshold`. After logging the data with `monitor_receive.py`, use `graph_queues.py` to graph the queue size of each switch over time. Repeat the same analysis for Case 2 & 3.
+For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. The goal of this experiment is to investigate where and when the queue size at any switch exceeds the `queue_threshold`. After logging the data with `monitor_receive.py`, use `graph_queues.py` to graph the queue size of each switch over time.
 <!--
 (Just some possible ideas)
 - Number of times packets were sent to monitor from each switch (i.e. number of times a warning is raised for each switch)
