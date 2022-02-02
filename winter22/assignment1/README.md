@@ -75,7 +75,7 @@ The goal of this task is to use the P4 language to configure the packet processi
 
 The packet processing pipelines at these switches perform the following tasks. In the ingress portion of the pipeline we will clone any packet received to go through the egress pipelines and send to the monitor. In the egress processing, we check if the packet is a cloned packet, and if so, we forward the packet to the monitor with the switch/queue size information added to the IP header ONLY if the following conditions are met, otherwise we drop the cloned packet:
 * Condition 1: The packet is a probe packet containing a valid Switch Inspector (SI) header
-* Condition 2: The queue size of the switch is greater than the `queue_threshold` constant
+* Condition 2: The queue size of the switch is greater than or equal to the `queue_threshold` constant
 
 
 
@@ -85,9 +85,11 @@ For your convenience, we have provided the template file, `monitor.p4`. Please f
 This task has some similarities with the [Multi-hop route inspector (MRI)](https://github.com/p4lang/tutorials/tree/master/exercises/mri) tutorial. However, unlike MRI, it clones the probe packets, adds the queue size information for just one switch, and compares the queue size value with a threshold value before sending it to the monitor. 
 
 ### Bonus Tasks
-We encourage the interested students to further optimize the packet processing pipeline for bonus points.
+We encourage the interested students to further optimize the packet processing pipeline for bonus points. Please note that to make these tasks work, you may have to fiddle around with the assignment files (e.g., `sX-runtime.json`). Therefore, please attempt these tasks only after you have finished the other tasks. Also, we don't expect you to provide a fully functioning solution. In your submission, you can write your thought process, what you attempted, etc.
+
 * The current pipeline clones all the packets from ingress to egress. Optimize this pipeline, such that it selectively clones the probe packets for which the queue size exceeds the threshold. (20 points)
-* The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from memory, and write it to packet's metadata. (40 points)
+* The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from the memory, and write it to packet's metadata. (40 points)
+    * HINT: Think about using runtime entries for this task. Even though, in this task, the runtime entries are provided statically via `sX-runtime.json` files, we can add/remove runtime entries dynamically. We did something similar in discussion section 3, when we used the switch CLI to add a table entry. 
 * The current pipeline can only add the queue size information to specialized probe packets. Thus, the queue size information can only be actively probed from the network. Enabling passive monitoring of queue sizes is more desirable, where for every incoming packet, it reads the queue size and report the ones that exceed the threshold to the monitor. Thus, one bonus task will be to enable passive monitoring for these switches. (40 points)
 
 <!-- Implement the `handle_pkt` function in the `monitor_receive.py` module, which will handle packets being received on each of the monitor's interfaces. Currently, the function just prints out the contents of each packet received. We want to extract the switch ID and queue size from each packet. We can then write these values to a CSV file with the following format:
@@ -117,9 +119,11 @@ The goal of the experiments is to observe how different bottleneck links affect 
 ## Task 0: Testing out P4 Program
 For these experiments we will be generating tcp traffic using `iperf` between h1 and h4. We will change the capacity of certain links and observe how the behavior changes. First, we will test out sending traffic between the hosts with unconstrained links. Set the queue threshold in `monitor.p4` to 0 for now, since the links are not constrained. Uncomment the call to `experiment()` in `start_mininet.py`. You should be able to view the output from each host in the `logs` directory. 
 
-The `experiment` function will run `receive.py` on h4 and `client_send.py` on h1. It will also run a background `iperf` traffic between the hosts h2 and h3. The monitor will be running `monitor_receive.py`, which will listen and log packets that arrive at that host. Remember, you can open terminal windows for each host using `xterm h1 h2 ...` for debugging purposes. However, this may become tedious over time. We programatically run commands on each host using the `hx.cmd()` command as we have done in the `experiment()` function. 
+The `experiment` function will run `receive.py` on h4 and `client_send.py` on h1. It will also run a background `iperf` traffic between the hosts h2 and h3. The monitor will be running `monitor_receive.py`, which will listen and log packets that arrive at that host. Remember, you can open terminal windows for each host using `xterm h1 h2 ...` for debugging purposes. However, this may become tedious over time. We programatically run commands on each host using the `hx.cmd()` command as we have done in the `experiment()` function.
 
 If your P4 program is working correctly, when you run `make`, you should be able to see packets in the monitor's log displaying the switch ID and queue size over time. Once you have verified your P4 implementation is correctly adding the SI headers, change `queue_threshold` back to a value of 10.
+
+Note that, because we have set the `queue_threshold` to 0, probe packets at each switch will be reported to the monitor. So, the logs will build up quickly if you let the experiment run for log. You can watch the log size using `du -sh logs/monitor-output.txt` by opening another terminal.
 
 ## Task 1: Reduced capacity for S1-S3
 Uncomment the function call `add_congestion_s1_s3(pps)` in the `start_mininet.py` module. Set the `pps` (packets per second) argument such that the bandwidth of the S1-S3 link is about 200 Kbps for packets of size 1500 bytes (typical MTU size).
