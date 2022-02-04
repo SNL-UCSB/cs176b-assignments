@@ -154,7 +154,6 @@ For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. Th
 The following are the deliverables for this assignment:
 * `start_mininet.py`
 * `monitor.p4`
-* `monitor_receive.py`
 * Graph for Task 1
 
 Please send these deliverables to the teaching staff, Rohan, over email. Please cc Arpit and Punnal to that email.  
