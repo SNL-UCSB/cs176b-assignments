@@ -99,7 +99,7 @@ We encourage the interested students to further optimize the packet processing p
 ## Task 3
 ### Use Python to write data processing and analysis scripts
 In this task you will write Python code for the monitor to receive and process the SI headers that are reporting the queue size at each switch.
-The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. The function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file with the following format:
+The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. The function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file `switch_stats.txt` with the following format:
 
 ```time, switch_id, queue_size```
 
