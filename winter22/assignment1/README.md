@@ -156,7 +156,7 @@ The following are the deliverables for this assignment:
 * `monitor.p4`
 * Graph for Task 1
 
-Please send these deliverables to the teaching staff, Rohan, over email. Please cc Arpit and Punnal to that email.  
+Please send these deliverables to the teaching staff, Rohan, over email with the subject "YOUR FULL NAME: CS176B Assginemnt 1". Please cc Arpit and Punnal to that email.
 
 In case you tried to solve the bonus point problems, then please send us a small writeup explaining how you implemented and tested the new features. 
 
