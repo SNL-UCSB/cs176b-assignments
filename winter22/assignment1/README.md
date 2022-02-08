@@ -156,6 +156,12 @@ The following are the deliverables for this assignment:
 * `monitor.p4`
 * Graph for Task 1
 
+To get the files from your VM, you can use the `vagrant scp` command ([link](https://stackoverflow.com/a/28359455/7263373)). You would have to use `default` as the `[vm_name]` in the command. The command works as follows:
+```bash
+# to transfer file from VM to your computer
+vagrant scp default:path_to_file_on_vm destination_path_on_your_machine
+```
+
 Please send these deliverables to the teaching staff, Rohan, over email with the subject "YOUR FULL NAME: CS176B Assginemnt 1". Please cc Arpit and Punnal to that email.
 
 In case you tried to solve the bonus point problems, then please send us a small writeup explaining how you implemented and tested the new features. 
