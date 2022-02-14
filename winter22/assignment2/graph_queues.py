@@ -9,8 +9,7 @@ plt.style.use('seaborn-whitegrid')
 
 
 def plot_results():
-    # TODO: Update working_dir with the absolute path to the root directory of assignment2
-    working_dir = 'path_to_assignment2'
+    working_dir = '/home/vagrant/cs176b-assignments/winter22/assignment2'
     csv_file = '{}/logs/switch_stats.csv'.format(working_dir)
 
     time_list, swid_list, qdepth_list = [], [], []

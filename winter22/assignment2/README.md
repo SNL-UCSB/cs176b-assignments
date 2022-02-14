@@ -1,6 +1,6 @@
 # CS 176B: Assignment 2
 
-In the previous assignment, you learned how we can use probe packets to measure queue sizes in the network. In this assignment, we will learn how to enable passive monitoring of queue sizes and how to handle network congestion at runtime. 
+In the previous assignment, you learned how we can use probe packets to measure queue sizes in the network. In this assignment, we will learn how to enable passive monitoring of queue sizes and how to handle network congestion at runtime.
 
 ## Learning Objectives
 In this assignment, you will learn:
@@ -21,7 +21,7 @@ There is a constant bandwidth (~500 Kbps) UDP traffic from `h2` to `h3` and from
 All the traffic between `h1-->h4` and `h2-->h3` takes the route `s3-->s1-->s2-->s4`. In other words, the routing policy does not use the link `s1-s4`. Note that this initial routing policy is specified in the `sX-runtime-init.json` files.
 
 ## What is Passive Monitoring?
-Passive monitoring is a technique used to capture traffic and other statistics from network in a non-disruptive fashion. In contrast to active monitoring, it does not actively sends a measurement probe, and monitors the network passively. 
+Passive monitoring is a technique used to capture traffic and other statistics from network in a non-disruptive fashion. In contrast to active monitoring, it does not actively sends a measurement probe, and monitors the network passively.
 
 In this assignment, we create a passive-monitor named `monitor` which observes the queue buildups at various links in the network. We also learn how to program the switches to report queue buildup information to the monitor.
 
@@ -57,7 +57,7 @@ Shown below is a table entry pulled out from [s1-runtime-init.json][s1rj] file:
   }
 }
 ```
-The above table entry states, *if a `ipv4.dstAddr` matches the IP `10.0.3.0/24`, forward the packet through the port 2 of the switch.* 
+The above table entry states, *if a `ipv4.dstAddr` matches the IP `10.0.3.0/24`, forward the packet through the port 2 of the switch.*
 
 P4Runtime is a runtime API which is used for adding/deleting/modifying table entries and other runtime objects (e.g., clone entries, multicast entries, etc.).
 
@@ -86,11 +86,11 @@ For your convenience, we have provided an overview of the directory structure fo
 ## Tasks
 ### Task 0: Setup VM
 Follow the steps below to setup the VM for Assignment 2:
+* Run `git pull origin master` in the assignments directory to pull latest changes.
 * Install tcpreplay on your VM by running:
 ```cmd
 sudo apt install tcpreplay
 ```
-* Modify the line 179 in [start_mininet.py][sm], line 78 in [monitor-receive.py][mr] and line 9 in [graph_queues.py][gq] to update the variable `working_dir` with the root directory of the Assignment 2, which will be `/home/vagrant/cs176b-assignments/assignment2`
 
 Go to the root directory of the Assignment 2 and run `make`. Your mininet topology for the Assignment 2 is up and working! You can verify this by running `pingall 1` in the mininet CLI (`1` second is the timeout). You should expect the following output:
 ```
@@ -153,7 +153,7 @@ The `dump` command displays the IP addresses of different interfaces in differen
 For the first task, you will modify the current setup to support passive monitoring.
 
 #### Task 1a: Modifying switch.p4
-We provide a template [switch.p4][sp4] program containing the basic forwarding functionality. In this task, you will augment [switch.p4][sp4] to add passive-monitoring capabilities. Specifically, the switch should create a clone of the current packet if the queue-size metadata on the packet is above a certain threshold. 
+We provide a template [switch.p4][sp4] program containing the basic forwarding functionality. In this task, you will augment [switch.p4][sp4] to add passive-monitoring capabilities. Specifically, the switch should create a clone of the current packet if the queue-size metadata on the packet is above a certain threshold.
 
 However, unlike the previous assignment, your job is to write a more efficient cloning pipeline. More concretely, in this assignment, you will create a clone of the packet in the egress pipeline only if the queue size metadata on the packet is above a certain threshold. Recall that the Assignment 1 code cloned all the incoming packets and selectively dropped them in the egress pipeline.
 
@@ -165,7 +165,7 @@ The [switch.p4][sp4] program defines a custom header named `out_header`. It cont
 For this task, use the following guidelines to update the P4 code in [switch.p4][sp4]:
 * Complete the action `update_clone_metadata` such that the user-defined metadata field `meta.original_qdepth` contains the queue depth of the original packet.
 * The action `do_clone_e2e` is incomplete. This action must make a clone of the packet such that:
-    * The clone session ID of the clone is 432 and, 
+    * The clone session ID of the clone is 432 and,
     * The field `meta.original_qdepth` is preserved in the cloned packet.
 * In the egress pipeline,
     * If the current packet is the original packet and the queue depth is above the threshold `q_th`, clone the packet and update the metadata field `meta.original_qdepth`.
@@ -182,11 +182,11 @@ Congratulations! Now, your switch is ready to perform passive-monitoring. You ca
 In this task you will modify the [graph_queues.py][gq] script to parse the `switch_stats.csv` file. You must store the values in the three lists defined in the python script. By running the plotting script, you should get a visual confirmation of the congestion in the network.
 
 Shown below is a sample graph for this task. Note that the actual graph may differ sligthly from the sample graph.
-![sample graph](https://github.com/SNL-UCSB/cs176b-assignments/blob/master/assignment2/queue_graph.png)
+![sample graph][sg]
 
 -----
 ### Task 2: Changing forwarding rules at runtime
-The goal of the second task is to overcome the congestion detected in Task 1. In this task, you will write a script that modifies the forwarding rules with runtime commands when congestion is detected. More precisely, to alleviate congestion, the new forwarding rules should send 
+The goal of the second task is to overcome the congestion detected in Task 1. In this task, you will write a script that modifies the forwarding rules with runtime commands when congestion is detected. More precisely, to alleviate congestion, the new forwarding rules should send
 * the traffic `h2-->h3` along the route `s3-->s1-->s4`
 * the traffic `h3-->h2` along the route `s4-->s1-->s3`
 
@@ -226,8 +226,9 @@ The following are the deliverables for this assignment:
 This assignment builds up on SIGCOMM's [MRI tutorial](https://github.com/p4lang/tutorials/tree/master/exercises/mri).
 
 <!-- links of various files below -->
-[gq]: https://github.com/SNL-UCSB/cs176b-assignments/tree/master/assignment2/graph_queues.py
-[mr]: https://github.com/SNL-UCSB/cs176b-assignments/tree/master/assignment2/monitor-receive.py
-[s1rj]: https://github.com/SNL-UCSB/cs176b-assignments/tree/master/assignment2/s1-runtime-init.json
-[sm]: https://github.com/SNL-UCSB/cs176b-assignments/tree/master/assignment2/start_mininet.py
-[sp4]: https://github.com/SNL-UCSB/cs176b-assignments/tree/master/assignment2/switch.p4
+[gq]: https://github.com/SNL-UCSB/cs176b-assignments/blob/master/winter22/assignment2/graph_queues.py
+[mr]: https://github.com/SNL-UCSB/cs176b-assignments/blob/master/winter22/assignment2/monitor-receive.py
+[s1rj]: https://github.com/SNL-UCSB/cs176b-assignments/blob/master/winter22/assignment2/s1-runtime-init.json
+[sm]: https://github.com/SNL-UCSB/cs176b-assignments/blob/master/winter22/assignment2/start_mininet.py
+[sp4]: https://github.com/SNL-UCSB/cs176b-assignments/blob/master/winter22/assignment2/switch.p4
+[sg]: https://github.com/SNL-UCSB/cs176b-assignments/blob/master/winter22/assignment2/queue_graph.png

@@ -175,8 +175,7 @@ if __name__ == '__main__':
     ### Network Experiments ###
     def experiment():
         info("*** Running experiment\n" )
-        # TODO: Update working_dir with the absolute path to the root directory of assignment2
-        working_dir = 'path_to_assignment2'
+        working_dir = '/home/vagrant/cs176b-assignments/winter22/assignment2'
         monitor.cmd('{}/monitor-receive.py > {}/logs/monitor-output.txt 2>&1 &'.format(working_dir,working_dir))
         h2.cmd('{}/send.py {} 20 --bw 0.5 > {}/logs/h2-output.txt 2>&1 &'.format(working_dir, h3.IP(), working_dir))
         h1.cmd('sleep 5 && {}/send.py {} 10 --bw 0.5 > {}/logs/h1-output.txt 2>&1 &'.format(working_dir, h4.IP(), working_dir))

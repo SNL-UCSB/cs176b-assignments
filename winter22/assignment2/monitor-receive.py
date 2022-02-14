@@ -74,8 +74,7 @@ def main():
           prn=lambda x: handle_pkt_1(x), timeout=30)
     
     if len(OUT_DATA) > 1:
-        # TODO: Update working_dir with the absolute path to the root directory of assignment2
-        working_dir = 'path_to_assignment2'
+        working_dir = '/home/vagrant/cs176b-assignments/winter22/assignment2'
         with open('{}/logs/switch_stats.csv'.format(working_dir), 'w') as fp:
             fp.write('\n'.join(OUT_DATA))
 
