@@ -172,7 +172,7 @@ For this task, use the following guidelines to update the P4 code in [switch.p4]
     * If the current packet is the cloned packet, add an `out_header` on it.
 * Finally, please follow the other TODO comments which instruct you to uncomment some lines or remove others.
 
-Congratulations! Now, your switch is ready to perform passive-monitoring. You can test out your newly written code by uncommenting the `experiment` function call on line 189 in [start_mininet.py][sm]. The `experiment` function runs a monitoring script on the node `monitor`, and sends the traffic as mentioned in the [Traffic](#Traffic) section. Now, when you run `make`, you should see the following files in the `logs/` directory:
+Congratulations! Now, your switch is ready to perform passive-monitoring. You can test out your newly written code by uncommenting the `experiment` function call on line 188 in [start_mininet.py][sm]. The `experiment` function runs a monitoring script on the node `monitor`, and sends the traffic as mentioned in the [Traffic](#Traffic) section. Now, when you run `make`, you should see the following files in the `logs/` directory:
 * `monitor-output.txt` -- This log file contains output from the [monitor-receive.py][mr] script running on the `monitor` node.
 * `switch_stats.csv` -- This csv file consists of the columns `time` -- the time at which the monitor receives the cloned packet, `swid` -- the switch experiencing congestion, and `qdepth` -- the queue depth at the switch. You will need this csv file in the [Task 1b](#Task-1b).
 
