@@ -221,6 +221,10 @@ The following are the deliverables for this assignment:
 * `monitor-receive.py`
 * Congestion graph for the [Task-1b](#Task-1b)
 
+## Grading Rubric
+* Task 1a: 35 points
+* Task 1b: 25 points
+* Task 2: 40 points
 
 ## Acknowledement
 This assignment builds up on SIGCOMM's [MRI tutorial](https://github.com/p4lang/tutorials/tree/master/exercises/mri).
