@@ -170,6 +170,7 @@ For this task, use the following guidelines to update the P4 code in [switch.p4]
 * In the egress pipeline,
     * If the current packet is the original packet and the queue depth is above the threshold `q_th`, clone the packet and update the metadata field `meta.original_qdepth`.
     * If the current packet is the cloned packet, add an `out_header` on it.
+      * HINT: Try to see how the code in assignment 1 selectively added the SI header only to the cloned packets. Because, we are creating an E2E clone, please use the `2` as the value for the instance type. 
 * Finally, please follow the other TODO comments which instruct you to uncomment some lines or remove others.
 
 Congratulations! Now, your switch is ready to perform passive-monitoring. You can test out your newly written code by uncommenting the `experiment` function call on line 188 in [start_mininet.py][sm]. The `experiment` function runs a monitoring script on the node `monitor`, and sends the traffic as mentioned in the [Traffic](#Traffic) section. Now, when you run `make`, you should see the following files in the `logs/` directory:
