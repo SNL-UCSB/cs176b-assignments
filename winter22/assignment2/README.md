@@ -222,6 +222,17 @@ The following are the deliverables for this assignment:
 * `monitor-receive.py`
 * Congestion graph for the [Task-1b](#Task-1b)
 
+## Submission
+To get the files from your VM, you can use the `vagrant scp` command ([link](https://stackoverflow.com/a/28359455/7263373)). You would have to use `default` as the `[vm_name]` in the command. The command works as follows:
+```bash
+# to transfer file from VM to your computer
+vagrant scp default:path_to_file_on_vm destination_path_on_your_machine
+```
+
+Please send these deliverables to the teaching staff, Rohan (rohanbhatia@ucsb.edu), over email with the subject "YOUR FULL NAME: CS176B Assginemnt 2". Please cc Arpit (arpitgupta@ucsb.edu) and Punnal (punnalismail@ucsb.edu) to that email.
+
+**Submissions not following the correct format will be penalized.**
+
 ## Grading Rubric
 * Task 1a: 35 points
 * Task 1b: 25 points
