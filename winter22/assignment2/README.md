@@ -153,9 +153,9 @@ The `dump` command displays the IP addresses of different interfaces in differen
 For the first task, you will modify the current setup to support passive monitoring.
 
 #### Task 1a: Modifying switch.p4
-We provide a template [switch.p4][sp4] program containing the basic forwarding functionality. In this task, you will augment [switch.p4][sp4] to add passive-monitoring capabilities. Specifically, the switch should create a clone of the current packet if the queue-size metadata on the packet is above a certain threshold.
+We provide a template [switch.p4][sp4] program containing the basic forwarding functionality. In this task, you will augment [switch.p4][sp4] to add passive-monitoring capabilities. Specifically, the switch should create a clone of the current packet if the queue-size metadata on the packet is greater than or equal to a certain threshold.
 
-However, unlike the previous assignment, your job is to write a more efficient cloning pipeline. More concretely, in this assignment, you will create a clone of the packet in the egress pipeline only if the queue size metadata on the packet is above a certain threshold. Recall that the Assignment 1 code cloned all the incoming packets and selectively dropped them in the egress pipeline.
+However, unlike the previous assignment, your job is to write a more efficient cloning pipeline. More concretely, in this assignment, you will create a clone of the packet in the egress pipeline only if the queue size metadata on the packet is greater than or equal to a certain threshold. Recall that the Assignment 1 code cloned all the incoming packets and selectively dropped them in the egress pipeline.
 
 In this assignment, you selectively clone packets because, when there is an over-subscriptiion for an egress port, the packets are buffered in an egress-port specific queue. Therefore, creating too many clones may result in packet-drops of the (cloned) monitoring packets.
 
@@ -168,7 +168,7 @@ For this task, use the following guidelines to update the P4 code in [switch.p4]
     * The clone session ID of the clone is 432 and,
     * The field `meta.original_qdepth` is preserved in the cloned packet.
 * In the egress pipeline,
-    * If the current packet is the original packet and the queue depth is above the threshold `q_th`, clone the packet and update the metadata field `meta.original_qdepth`.
+    * If the current packet is the original packet and the queue depth is greater than or equal to the threshold `q_th`, clone the packet and update the metadata field `meta.original_qdepth`.
     * If the current packet is the cloned packet, add an `out_header` on it.
       * HINT: Try to see how the code in assignment 1 selectively added the SI header only to the cloned packets. Because, we are creating an E2E clone, please use the `2` as the value for the instance type. 
 * Finally, please follow the other TODO comments which instruct you to uncomment some lines or remove others.
