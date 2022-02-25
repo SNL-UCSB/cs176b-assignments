@@ -186,7 +186,7 @@ control MyEgress(inout headers hdr,
 	out_header.apply();
 	
         // TODO:
-        // If the curretn packet is the original packet and the queue depth is above the threshold q_th,
+        // If the curretn packet is the original packet and the queue depth is >= threshold q_th,
 	// clone the packet and update the field `original_qdepth` in the metadata `meta`
 
         // TODO:
