@@ -78,7 +78,9 @@ cd ~/cs176b-vm && vagrant up
 
   Wait for login to fail because private_key is not there. You will see the warning message `default: Warning: Authentication failure.    Retrying...`. Press Ctrl + C to exit after this message.
 
-#### Copy the private key file from the shared directory to the VM's virtualbox directory and sets its file permissions to read-write for the owner only.
+#### Setup key and premissions
+
+Copy the private key file from the shared directory to the VM's virtualbox directory and sets its file permissions to read-write for the owner only.
 ```
 cd ~/cs176b-vm/.vagrant/machines/default/virtualbox && cp /mnt/md0/punnal/private_key ./ && chmod 600 private_key
 ```
