@@ -11,7 +11,7 @@ Note: To get access see piazza post.
 # Setting up the VM on server
 Instructions below are adapted from [here](https://hackmd.io/@NYkcw1tZRaWveYyshKOEGA/BJaSuJ3Md). In case of any confusion, refer to the original document for detailed instructions. On the server, run:
 
-#### Create two directories cs176b-vm and VirtualBox VMs using the following command:
+#### Create two directories cs176b-vm and VirtualBox VMs
 ```
 cd ~ && mkdir -p /mnt/md0/$USER/cs176b-vm && mkdir -p /mnt/md0/$USER/VirtualBox\ VMs
 ```
@@ -19,13 +19,13 @@ cd ~ && mkdir -p /mnt/md0/$USER/cs176b-vm && mkdir -p /mnt/md0/$USER/VirtualBox\
 
 
 
-#### Create symbolic links to the OVA file and the two directories created in the previous step using the following command:
+#### Create symbolic links to the OVA file and the two directories created in the previous step
 ```
 cd ~ && ln -s /mnt/md0/punnal/CS176B-VM.ova && ln -s /mnt/md0/$USER/VirtualBox\ VMs && ln -s /mnt/md0/$USER/cs176b-vm
 ```
   This command creates symbolic links to the CS176B-VM.ova file and the VirtualBox VMs and cs176b-vm directories in the user's home directory.
 
-#### Import the OVA file using the following command:
+#### Import the OVA file
 ```
 vboxmanage import ~/CS176B-VM.ova
 ```
@@ -46,13 +46,13 @@ cd ~/cs176b-vm && vagrant package --base <vm_id_from_above> --output cs176.box
 ``` 
  This command packages the VM into a Vagrant box named cs176.box and saves it in the cs176b-vm directory.
 
-#### Add the Vagrant box using the following command:
+#### Add the Vagrant box
 ```
 vagrant box add ~/cs176b-vm/cs176.box --name cs176b-vm
 ```
   This command adds the Vagrant box named cs176b-vm to the local Vagrant environment.
 
-#### Initialize the Vagrant environment using the following command:
+#### Initialize the Vagrant environment
 ```
 cd ~/cs176b-vm && vagrant init
 ```
