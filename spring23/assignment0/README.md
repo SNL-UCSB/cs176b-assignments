@@ -1,23 +1,98 @@
 # Assignment 0: 
 
-You can either setup the VM on server(access provided to you) or your machine
+For this assignment you can either setup the VM on server(access provided to you) or your machine
+
+
+Note: To get access see piazza post.
+
+<!-- This is not a group assignment. You are not allowed to copy or look at code from other students. However, you are welcome to discuss the assignments with other students without sharing code. -->
 
 
 # Setting up the VM on server
 Instructions below are adapted from [here](https://hackmd.io/@NYkcw1tZRaWveYyshKOEGA/BJaSuJ3Md). In case of any confusion, refer to the original document for detailed instructions. On the server, run:
 
-- `cd ~ && mkdir -p /mnt/md0/$USER/cs176b-vm && mkdir -p /mnt/md0/$USER/VirtualBox\ VMs`
-- `cd ~ && ln -s /mnt/md0/punnal/CS176B-VM.ova && ln -s /mnt/md0/$USER/VirtualBox\ VMs && ln -s /mnt/md0/$USER/cs176b-vm`
-- `vboxmanage import ~/CS176B-VM.ova`
-- `VBoxManage list vms` and copy the id
-- `cd ~/cs176b-vm && vagrant package --base <vm_id_from_above> --output cs176.box`
-- `vagrant box add ~/cs176b-vm/cs176.box --name cs176b-vm`
-- `cd ~/cs176b-vm && vagrant init`
-- `emacs Vagrantfile` and update the line `config.vm.box = "cs176b-vm"`
-- `cd ~/cs176b-vm && vagrant up`
-- Wait for login to fail because private_key is not there
-- `cd ~/cs176b-vm/.vagrant/machines/default/virtualbox && gdown https://drive.google.com/uc?id=1ZgeHXc9x_dSuRtvQT0uggII1rn6EXviV && chmod 600 private_key`
-- `cd ~/cs176b-vm && vagrant ssh`
+#### Create two directories cs176b-vm and VirtualBox VMs using the following command:
+```
+cd ~ && mkdir -p /mnt/md0/$USER/cs176b-vm && mkdir -p /mnt/md0/$USER/VirtualBox\ VMs
+```
+  This command changes the current working directory to the user's home directory and creates two new directories, cs176b-vm and VirtualBox VMs, in the /mnt/md0/$USER directory.
+
+
+
+#### Create symbolic links to the OVA file and the two directories created in the previous step using the following command:
+```
+cd ~ && ln -s /mnt/md0/punnal/CS176B-VM.ova && ln -s /mnt/md0/$USER/VirtualBox\ VMs && ln -s /mnt/md0/$USER/cs176b-vm
+```
+  This command creates symbolic links to the CS176B-VM.ova file and the VirtualBox VMs and cs176b-vm directories in the user's home directory.
+
+#### Import the OVA file using the following command:
+```
+vboxmanage import ~/CS176B-VM.ova
+```
+  This command imports the CS176B-VM.ova file into VirtualBox.
+
+
+#### List the imported VMs and copy the ID of the newly imported VM using the following command:
+```
+VBoxManage list vms
+```
+
+
+#### Package the VM using the following command(This command will take time):
+```
+cd ~/cs176b-vm && vagrant package --base <vm_id_from_above> --output cs176.box
+``` 
+  This command packages the VM into a Vagrant box named cs176.box and saves it in the cs176b-vm directory.
+
+#### Add the Vagrant box using the following command:
+```
+vagrant box add ~/cs176b-vm/cs176.box --name cs176b-vm
+```
+  This command adds the Vagrant box named cs176b-vm to the local Vagrant environment.
+
+#### Initialize the Vagrant environment using the following command:
+```
+cd ~/cs176b-vm && vagrant init
+```
+  This command creates a new Vagrantfile in the cs176b-vm directory.
+
+
+#### Edit the Vagrantfile 
+Edit the Vagrantfile using a text editor such as vim and update the line `config.vm.box = "base"` to `config.vm.box = "cs176b-vm"`
+
+```
+vim Vagrantfile
+```
+
+
+#### Start the VM 
+Start the VM using the following command(It will fail. Look at next step):
+```
+cd ~/cs176b-vm && vagrant up
+```
+
+
+  Wait for login to fail because private_key is not there. You will see the warning message `default: Warning: Authentication failure.    Retrying...`. Press Ctrl + C to exit after this message.
+
+#### Copy the private key file from the shared directory to the VM's virtualbox directory and sets its file permissions to read-write for the owner only.
+```
+cd ~/cs176b-vm/.vagrant/machines/default/virtualbox && cp /mnt/md0/punnal/private_key ./ && chmod 600 private_key
+```
+
+#### Finally execute the following commands.
+- Go to ~/cs176b-vm: `cd ~/cs176b-vm`
+- Start VM: `vagrant up`
+- Login to your VM: `vagrant ssh` 
+- You can now type `exit` to exit the VM. 
+
+## Some final Notes
+Once you have followed the instructions on above to set up your VM, you can execute the following vagrant commands from the ~/cs176b-vm directory on the server:
+1. `vagrant up`: Turn on the VM
+2. `vagrant halt`: Shut down the VM
+3. `vagrant destroy`: Destroys the VM setup. NEVER RUN THIS
+4. `vagrant ssh`: Login to the VM
+Please remember always to run vagrant halt after you finish using the VM. Members of the SNL lab use the server, and they may kill idle processes (your VM in this case) to run their compute jobs. If your VM is killed, you may potentially lose some of your work, or maybe the VM may get corrupted. So, please remember not to leave the VM running when you're not using it! 
+PS: Don't share your private ssh key with anyone. It's like sharing your password.
 
 
 # Setting up the VM on your machine
