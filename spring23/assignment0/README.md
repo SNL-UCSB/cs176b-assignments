@@ -40,7 +40,7 @@ VBoxManage list vms
 
 
 #### Package the VM 
-Package the VM using the following command(This command will take time). the `<vm_id_from_above>` is the id you copied from the previous step.
+Package the VM using the following command(This command will take time). The `<vm_id_from_above>` is the id you copied from the previous step.
 ```
 cd ~/cs176b-vm && vagrant package --base <vm_id_from_above> --output cs176.box
 ``` 
