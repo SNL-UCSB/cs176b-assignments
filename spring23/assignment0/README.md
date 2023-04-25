@@ -60,11 +60,13 @@ cd ~/cs176b-vm && vagrant init
 
 
 #### Edit the Vagrantfile 
-Edit the Vagrantfile using a text editor such as vim and update the line `config.vm.box = "base"` to `config.vm.box = "cs176b-vm"`
 
 ```
 vim Vagrantfile
 ```
+
+Edit the Vagrantfile using a text editor such as vim and update the line `config.vm.box = "base"` to `config.vm.box = "cs176b-vm"`
+
 
 
 #### Start the VM 
