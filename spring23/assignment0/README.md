@@ -32,17 +32,19 @@ vboxmanage import ~/CS176B-VM.ova
   This command imports the CS176B-VM.ova file into VirtualBox.
 
 
-#### List the imported VMs and copy the ID of the newly imported VM using the following command:
+#### List the imported VMs 
+List the imported VMs using the following command and copy the ID of the newly imported VM:
 ```
 VBoxManage list vms
 ```
 
 
-#### Package the VM using the following command(This command will take time):
+#### Package the VM 
+Package the VM using the following command(This command will take time). the `<vm_id_from_above>` is the id you copied from the previous step.
 ```
 cd ~/cs176b-vm && vagrant package --base <vm_id_from_above> --output cs176.box
 ``` 
-  This command packages the VM into a Vagrant box named cs176.box and saves it in the cs176b-vm directory.
+ This command packages the VM into a Vagrant box named cs176.box and saves it in the cs176b-vm directory.
 
 #### Add the Vagrant box using the following command:
 ```
