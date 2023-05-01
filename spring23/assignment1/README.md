@@ -25,7 +25,7 @@ connected to $k / 2$ hosts. Each of the remaining $k / 2$ ports is
 connected to $k / 2$ of the k ports in the aggregation layer
 of the hierarchy. There are $( k / 2 )^2$ k-port core switches.
 Each core switch has one port connected to each of $k$ pods. 
-The $i^th$ port of any core switch is connected to pod $i$ such 
+The $ith$ port of any core switch is connected to pod $i$ such 
 that consecutive ports in the aggregation layer of each pod 
 switch are connected to core switches on $( k / 2 )$ strides. 
 In general, a fat-tree built with k-port switches supports 
