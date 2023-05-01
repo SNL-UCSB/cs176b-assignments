@@ -19,11 +19,11 @@ A common data center topology to connect 16 hosts. Here, the commodity switches 
 ### Fat tree topologies
 
 In contrast, Fat tree only employes cheaper commodity switches at
-all levels. It considers k pods, each containing two layers of k / 2
+all levels. It considers $$k$$ pods, each containing two layers of $$k / 2$$
 switches. Each k-port switch in the lower layer is directly
 connected to k / 2 hosts. Each of the remaining k / 2 ports is
 connected to k / 2 of the k ports in the aggregation layer
-of the hierarchy. There are ( k / 2 ) 2 k-port core switches.
+of the hierarchy. There are $$( k / 2 )^2$$ k-port core switches.
 Each core switch has one port connected to each of k pods. 
 The i t h port of any core switch is connected to pod i such 
 that consecutive ports in the aggregation layer of each pod 
