@@ -29,11 +29,13 @@ The $ith$ port of any core switch is connected to pod $i$ such
 that consecutive ports in the aggregation layer of each pod 
 switch are connected to core switches on $( k / 2 )$ strides 
 In general, a fat-tree built with k-port switches supports 
-$k^3 /4$ hosts. To summarize, in a fat tree topology with k-port 
+$k^3 /4$ hosts. 
+
+To summarize, in a fat tree topology with k-port 
 switches, we have: 
 
 - $k$ pods 
-- $k /2$ aggregation switches and access switches for each pod. Thus, across all the k pods the topology has a total of k 2 /2 aggregation and access switches. 
+- $k /2$ aggregation switches and access switches for each pod. Thus, across all the $k$ pods the topology has a total of $k^2 /2$ aggregation and access switches. 
 - $( k / 2 )^2$ core switches 
 - $k^3 /4$ end hosts 
 - Total switches = $k^2 + k^2 /4=(5/4). k^2 $
@@ -55,7 +57,7 @@ Your Python program (fat_tree.py) must:
 - Take the number of switch ports per switch, i.e., $k$ as input
 - It should create a fat tree topology for the input $k$ using Mininet
 - Use the OVSBridge as switches. You do not need to specify any remote OF controller for this assignment.
-- Generate output file: `net_dump.txt`.
+- Generate output file: `net_dump.txt`, which contains the dump of network.
 
 ## Additional Questions
 If the cost of a 64-port 100-Gig switch is around $5,000.
@@ -68,8 +70,8 @@ If the cost of a 64-port 100-Gig switch is around $5,000.
 ### Submission
 Submit the following files over Canvas:
 
-Your python program, `fat_tree.py`.
-Write your answers in a text file and submit, `answers.txt`.
+- Your python program, `fat_tree.py`.
+- Write your answers in a text file and submit, `answers.txt`.
 
 ## Grading Rubric
 We will assign you grades on a scale of 10.
