@@ -11,6 +11,9 @@ This design was motivated by the steep difference in the prices between the comm
 
 ### Mixed Network topologies
 
+![ALT TEXT](https://raw.githubusercontent.com/SNL-UCSB/cs176b-assignments/master/spring23/assignment1/oIG1u1U.png)
+
+
 A common data center topology to connect 16 hosts. Here, the commodity switches are used at the edge and non-commodity ones are used at the aggregation and core levels.
 
 ### Fat tree topologies
@@ -37,6 +40,9 @@ switches, we have:
 
 
 The figure illustrates the fat tree topology for k=4, connecting 16 hosts.
+
+![ALT TEXT](https://raw.githubusercontent.com/SNL-UCSB/cs176b-assignments/master/spring23/assignment1/F5ofoLN.png)
+
 
 ### Illustrative example
 As an example instance of this topology, a fat-tree built from 48-port GigE switches would consist of 48 pods, each containing an edge layer and an aggregation layer with 24 switches each. The edge switches in every pod are assigned 24 hosts each. The network supports 27,648 hosts, made up of 1,152 edge (and aggregation) switches and 576 core switches. There are 576 equal-cost paths between any given pair of hosts in different pods.
