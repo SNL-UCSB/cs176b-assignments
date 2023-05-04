@@ -49,7 +49,7 @@ You should implement your solution in Python and use the Mininet API to create t
 
 Your Python program (fat_tree.py) must:
 
-- Take the number of switch ports per switch, i.e., $k$ as input
+- Take the number of switch ports per switch, i.e., $k$ as input(Note that $k$ cannot be negative, zero or odd number)
 - It should create a fat tree topology for the input $k$ using Mininet
 - Use the OVSBridge as switches. You do not need to specify any remote OF controller for this assignment.
 - Generate output file: `net_dump.txt`, which contains the dump of network.
