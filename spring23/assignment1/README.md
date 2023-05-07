@@ -68,6 +68,29 @@ Submit the following files over Canvas:
 - Your python program, `fat_tree.py`.
 - Write your answers in a text file and submit, `answers.txt`.
 
+To copy `fat_tree.py` to your local machine for submission follow the below instructions:
+
+First you need to copy file from VM to server.
+
+Go to the directory where you start your VM from.
+```
+cd ~/cs176b-vm
+```
+Install the vagrant-scp plugin.
+```
+vagrant plugin install vagrant-scp
+```
+After installing it you can simply run the below command to transfer files.
+```
+vagrant scp default:path_to_file_on_vm destination_path_on_server
+```
+
+Now you need to copy file from server to your local machine. For that run the below command from your local machine.
+```
+scp snl-server-5.cs.ucsb.edu:path_to_file_on_server destination_path_on_local_machine
+```
+
+
 ## Grading Rubric
 We will assign you grades on a scale of 10.
 
