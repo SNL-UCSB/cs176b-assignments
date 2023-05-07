@@ -75,3 +75,6 @@ We will assign you grades on a scale of 10.
 - `Readability`: (1 points): Is your program well-documented, easy to understand, and well-organized?
 - `Error Handling`: (1 point): Does your program handle any errors or invalid input gracefully?
 - `Additional questions`: (3 points): Based on your answers to additional questions listed above, one point for each question. 
+
+### Late Policy
+Please submit the assignment by the advertised deadline. For late submissions, we will deduct one point (out of 10) for each day post deadline. 
