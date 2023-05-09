@@ -86,7 +86,7 @@ For your convenience, we have provided the template file, `monitor.p4`. Please f
 This task has some similarities with the [Multi-hop route inspector (MRI)](https://github.com/p4lang/tutorials/tree/master/exercises/mri) tutorial. However, unlike MRI, it clones the probe packets, adds the queue size information for just one switch, and compares the queue size value with a threshold value before sending it to the monitor. 
 
 ### Bonus Tasks
-We encourage the interested students to further optimize the packet processing pipeline for bonus points. Please note that to make these tasks work, you may have to fiddle around with the assignment files (e.g., `sX-runtime.json`). Therefore, please attempt these tasks only after you have finished the other tasks. Also, we don't expect you to provide a fully functioning solution. In your submission, you can write your thought process, what you attempted, etc.
+We encourage the interested students to further optimize the packet processing pipeline for bonus points. Please note that to make these tasks work, you may have to fiddle around with the assignment files (e.g., `sX-runtime.json`). Therefore, please attempt these tasks only after you have finished the assignment. Also, we don't expect you to provide a fully functioning solution. In your submission, you can write your thought process, what you attempted, etc.
 
 * The current pipeline clones all the packets from ingress to egress. Optimize this pipeline, such that it selectively clones the probe packets for which the queue size exceeds the threshold. (20 points)
 * The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from the memory, and write it to packet's metadata. (40 points)
@@ -99,13 +99,14 @@ We encourage the interested students to further optimize the packet processing p
 
 ## Task 3
 ### Use Python to write data processing and analysis scripts
-In this task you will write Python code for the monitor to receive and process the SI headers that are reporting the queue size at each switch.
+In this task you have Python code for the monitor to receive and process the SI headers that are reporting the queue size at each switch.
 The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. You might have to update the working directory in this file if you cloned the assignment somewhere else. The function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file `switch_stats.txt` with the following format:
 
 ```time, switch_id, queue_size```
 
 You have to implement `graph_queues.py` which reads in this CSV file and plots the queue size over time for each switch. Please label the axes appropriately and add a title to your graph.
 
+Note that `switch_stats.txt` will only be generated when you follow the instructions in Part 2, Task 0.
 
 # Part 2: Measuring Network's State
 <!--Overview.
