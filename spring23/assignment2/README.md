@@ -155,7 +155,7 @@ For this experiment, we first alter the link `s1-s3` to a bandwidth 200 Kbps. Th
 The following are the deliverables for this assignment:
 * `start_mininet.py`
 * `monitor.p4`
-* Graph for Task 1
+* Graph for Part2, Task 1
 
 To get the files from your VM, you can use the `vagrant scp` command ([link](https://stackoverflow.com/a/28359455/7263373)). You would have to use `default` as the `[vm_name]` in the command. The command works as follows:
 ```bash
@@ -164,7 +164,7 @@ vagrant scp default:path_to_file_on_vm destination_path_on_your_machine
 ```
 
 
-In case you tried to solve the bonus point problems, then please upload a small writeup explaining how you implemented and tested the new features. Name this write up "bonus_task.txt"
+In case you tried to solve the bonus point problems, then please upload a small writeup explaining how you implemented and tested the new features. Name this write up `bonus_task.txt`
 
 
 
