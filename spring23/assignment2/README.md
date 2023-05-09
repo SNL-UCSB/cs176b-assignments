@@ -44,8 +44,7 @@ In assignment 0, you used `virtualbox` and `vagrant` to setup the VM. For this a
 4. After logging in to the VM, Clone the repo: `git clone https://github.com/SNL-UCSB/cs176b-assignments.git`
 5. Go to the assignments directory `cd ~/cs176b-assignments`.
 6. Run a `git pull` in the directory to get any new commits.
-7. 
-8. cd into the directory for this assignment `cd ~/cs176b-assignments/spring23/assignment2`.
+7. cd into the directory for this assignment `cd ~/cs176b-assignments/spring23/assignment2`.
 <!-- Run the provided setup script (`./setup.sh`) on your VM and wait for the installation to finish. -->
 
 ## Task 1: Create Network Topology.
