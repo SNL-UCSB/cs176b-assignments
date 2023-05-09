@@ -47,7 +47,7 @@ def main():
 #    print "sniffing on %s" % iface
 #    sys.stdout.flush()
 
-
+    # TODO: update working_dir based on where you place these files
     working_dir = '/home/vagrant/cs176b-assignments/winter22/assignment1'
             
     f = open('{}/switch_stats.txt'.format(working_dir), 'w')
