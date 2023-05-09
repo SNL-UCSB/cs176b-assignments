@@ -116,7 +116,7 @@ class CoreP4Topo(Topo):
 
         monitor = self.addHost('monitor')
         
-        # Add these hosts to the global data structure
+        # Add these hosts to the global data structurewinter
         self.host_objects.append(host1)
         self.host_objects.append(host2)
         self.host_objects.append(host3)
@@ -190,7 +190,7 @@ if __name__ == '__main__':
 
     ### Network Experiments ###
     def experiment():
-        working_dir = '/home/vagrant/cs176b-assignments/winter22/assignment1'
+        working_dir = '/home/vagrant/cs176b-assignments/spring23/assignment2'
         
         h3.cmd('iperf -s > {}/logs/h3-output.txt &'.format(working_dir))
         h2.cmd('iperf -c 10.0.4.3 > {}/logs/h2-output.txt &'.format(working_dir))
