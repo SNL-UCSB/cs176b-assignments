@@ -1,4 +1,4 @@
-# CS 176B: Assignment 1
+# CS 176B: Assignment 2
 
 ## Learning Objectives
 In this assignment, you will learn:
