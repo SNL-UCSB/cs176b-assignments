@@ -41,10 +41,11 @@ In assignment 0, you used `virtualbox` and `vagrant` to setup the VM. For this a
 1. Enter the directory containing the Vagrantfile.
 2. Turn on the VM `vagrant up`.
 3. Log into the VM `vagrant ssh`.
-4. After logging in to the VM, go to the assignments directory `cd ~/cs176b-assignments`.
-5. Run a `git pull` in the directory to get any new commits.
-6. Remove old files `sudo rm -rf ~/cs176b-assignments/assignment1`.
-8. cd into the directory for this assignment `cd ~/cs176b-assignments/winter22/assignment1`.
+4. After logging in to the VM, Clone the repo: `git clone https://github.com/SNL-UCSB/cs176b-assignments.git`
+5. Go to the assignments directory `cd ~/cs176b-assignments`.
+6. Run a `git pull` in the directory to get any new commits.
+7. 
+8. cd into the directory for this assignment `cd ~/cs176b-assignments/spring23/assignment2`.
 <!-- Run the provided setup script (`./setup.sh`) on your VM and wait for the installation to finish. -->
 
 ## Task 1: Create Network Topology.
@@ -89,7 +90,7 @@ We encourage the interested students to further optimize the packet processing p
 
 * The current pipeline clones all the packets from ingress to egress. Optimize this pipeline, such that it selectively clones the probe packets for which the queue size exceeds the threshold. (20 points)
 * The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from the memory, and write it to packet's metadata. (40 points)
-    * HINT: Think about using runtime entries for this task. Even though, in this task, the runtime entries are provided statically via `sX-runtime.json` files, we can add/remove runtime entries dynamically. We did something similar in discussion section 3, when we used the switch CLI to add a table entry. 
+    * HINT: Think about using runtime entries for this task. Even though, in this task, the runtime entries are provided statically via `sX-runtime.json` files, we can add/remove runtime entries dynamically.
 * The current pipeline can only add the queue size information to specialized probe packets. Thus, the queue size information can only be actively probed from the network. Enabling passive monitoring of queue sizes is more desirable, where for every incoming packet, it reads the queue size and report the ones that exceed the threshold to the monitor. Thus, one bonus task will be to enable passive monitoring for these switches. (40 points)
 
 <!-- Implement the `handle_pkt` function in the `monitor_receive.py` module, which will handle packets being received on each of the monitor's interfaces. Currently, the function just prints out the contents of each packet received. We want to extract the switch ID and queue size from each packet. We can then write these values to a CSV file with the following format:
@@ -99,7 +100,7 @@ We encourage the interested students to further optimize the packet processing p
 ## Task 3
 ### Use Python to write data processing and analysis scripts
 In this task you will write Python code for the monitor to receive and process the SI headers that are reporting the queue size at each switch.
-The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. The function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file `switch_stats.txt` with the following format:
+The `handle_pkt` function is implemented in the `monitor_receive.py` module, which handles packets being received on each of the monitor's interfaces. You might have to update the working directory in this file if you cloned the assignment somewhere else. The function prints out the contents of each packet received and extracts the switch ID and the queue size from each probe packet. Then, it writes these values to a CSV file `switch_stats.txt` with the following format:
 
 ```time, switch_id, queue_size```
 
@@ -162,9 +163,8 @@ To get the files from your VM, you can use the `vagrant scp` command ([link](htt
 vagrant scp default:path_to_file_on_vm destination_path_on_your_machine
 ```
 
-Please send these deliverables to the teaching staff, Rohan, over email with the subject "YOUR FULL NAME: CS176B Assginemnt 1". Please cc Arpit and Punnal to that email.
 
-In case you tried to solve the bonus point problems, then please send us a small writeup explaining how you implemented and tested the new features. 
+In case you tried to solve the bonus point problems, then please upload a small writeup explaining how you implemented and tested the new features. Name this write up "bonus_task.txt"
 
 
 
