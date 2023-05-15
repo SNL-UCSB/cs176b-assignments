@@ -1,10 +1,10 @@
 # CS 176B: Assignment 2
 
 ## Learning Objectives
-In this assignment, you will learn:
-1. How to create Mininet topologies for prototyping network monitoring solutions?
-2. How to write packet-processing pipelines for network monitoring in P4?
-3. How to analyze queue sizes and bottlenecks within a Mininet network?
+In this assignment, you will:
+1. Create Mininet topologies for prototyping a custom network monitoring solutions? (4/10)
+2. Write packet-processing pipelines for network monitoring in P4? (4/10)
+3. Analyze queue sizes and bottlenecks within a Mininet network? (2/10)
 
 This assignment builds up on topics covered in CS 176B lectures and discussion section. More specifically, it focuses on how we can use SDN tools to design experiments for network research. We will focus on network telemetry systems, which are designed to query the state of the network. In this assignment, we will specifically focus on the design of a network telemetry system that monitors the queue sizes for different switches in the network. The first part of assignment will focus on the building blocks for the network telemetry system, i.e. Mininet-based topology and the P4-based packet processing pipeline. The second part will focus on using this telemetry system to measure the state of the network under different network conditions. 
 
@@ -70,14 +70,9 @@ monitor -> X X X X
 ## Task 2: Configure packet-processing pipelines
 The goal of this task is to use the P4 language to configure the packet processing pipelines for the four switches (S1-S4). In addition to packet forwarding, these switches perform in-network telemetry. More concretely, they detect probe packets with a custom IP header, and add the state of the switch, i.e., `swid` (stands for Switch ID) and `queue_size` to a duplicated packet that is forwarded to the network monitor. 
 
-
-
-
 The packet processing pipelines at these switches perform the following tasks. In the ingress portion of the pipeline we will clone any packet received to go through the egress pipelines and send to the monitor. In the egress processing, we check if the packet is a cloned packet, and if so, we forward the packet to the monitor with the switch/queue size information added to the IP header ONLY if the following conditions are met, otherwise we drop the cloned packet:
 * Condition 1: The packet is a probe packet containing a valid Switch Inspector (SI) header
 * Condition 2: The queue size of the switch is greater than or equal to the `queue_threshold` constant
-
-
 
 For your convenience, we have provided the template file, `monitor.p4`. Please fill in the TODO comments in the ingress and egress processing part of the pipelines. Please refer to Task 0 in the "Measuring Network's State" section below to test your P4 implementation. The .json files for each switch specify the control plane configuration that each switch will operate off of. Refer to these files to find the relevant Session ID to use when cloning packets.
 
@@ -87,8 +82,8 @@ This task has some similarities with the [Multi-hop route inspector (MRI)](https
 ### Bonus Tasks
 We encourage the interested students to further optimize the packet processing pipeline for bonus points. Please note that to make these tasks work, you may have to fiddle around with the assignment files (e.g., `sX-runtime.json`). Therefore, please attempt these tasks only after you have finished the assignment. Also, we don't expect you to provide a fully functioning solution. In your submission, you can write your thought process, what you attempted, etc.
 
-* The current pipeline clones all the packets from ingress to egress. Optimize this pipeline, such that it selectively clones the probe packets for which the queue size exceeds the threshold. (20 points)
-* The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from the memory, and write it to packet's metadata. (40 points)
+* The current pipeline clones all the packets from ingress to egress. Optimize this pipeline, such that it selectively clones the probe packets for which the queue size exceeds the threshold. (2 points)
+* The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from the memory, and write it to packet's metadata. (4 points)
     * HINT: Think about using runtime entries for this task. Even though, in this task, the runtime entries are provided statically via `sX-runtime.json` files, we can add/remove runtime entries dynamically.
 * The current pipeline can only add the queue size information to specialized probe packets. Thus, the queue size information can only be actively probed from the network. Enabling passive monitoring of queue sizes is more desirable, where for every incoming packet, it reads the queue size and report the ones that exceed the threshold to the monitor. Thus, one bonus task will be to enable passive monitoring for these switches. (40 points)
 
