@@ -8,7 +8,7 @@ In this assignment, you will:
 
 This assignment builds up on topics covered in CS 176B lectures and discussion section. More specifically, it focuses on how we can use SDN tools to design experiments for network research. We will focus on network telemetry systems, which are designed to query the state of the network. In this assignment, we will specifically focus on the design of a network telemetry system that monitors the queue sizes for different switches in the network. The first part of assignment will focus on the building blocks for the network telemetry system, i.e. Mininet-based topology and the P4-based packet processing pipeline. The second part will focus on using this telemetry system to measure the state of the network under different network conditions. 
 
-There are two bonus tasks, so, in theory you can earn a max of 16/10 points in this assignment. 
+There are three bonus tasks with a total of 10 extra points. So, in theory, you can earn a max of 20/10 points in this assignment. 
 
 # Topology
 
@@ -84,10 +84,10 @@ This task has some similarities with the [Multi-hop route inspector (MRI)](https
 ### Bonus Tasks
 We encourage the interested students to further optimize the packet processing pipeline for bonus points. Please note that to make these tasks work, you may have to fiddle around with the assignment files (e.g., `sX-runtime.json`). Therefore, please attempt these tasks only after you have finished the assignment. Also, we don't expect you to provide a fully functioning solution. In your submission, you can write your thought process, what you attempted, etc.
 
-* The current pipeline clones all the packets from ingress to egress. Optimize this pipeline, such that it selectively clones the probe packets for which the queue size exceeds the threshold. (2 points)
-* The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from the memory, and write it to packet's metadata. (4 points)
+1. The current pipeline clones all the packets from ingress to egress. Optimize this pipeline, such that it selectively clones the probe packets for which the queue size exceeds the threshold. (2 points)
+2. The current pipeline uses a hardcoded value as threshold. Changing this value requires recompiling the P4 program, which is expensive. Optimize this pipeline, such that it can dynamically update the threshold value. One possible approach can be to use a match-action table, where the action can be to read the threshold value from the memory, and write it to packet's metadata. (3 points)
     * HINT: Think about using runtime entries for this task. Even though, in this task, the runtime entries are provided statically via `sX-runtime.json` files, we can add/remove runtime entries dynamically.
-* The current pipeline can only add the queue size information to specialized probe packets. Thus, the queue size information can only be actively probed from the network. Enabling passive monitoring of queue sizes is more desirable, where for every incoming packet, it reads the queue size and report the ones that exceed the threshold to the monitor. Thus, one bonus task will be to enable passive monitoring for these switches. (40 points)
+3. The current pipeline can only add the queue size information to specialized probe packets. Thus, the queue size information can only be actively probed from the network. Enabling passive monitoring of queue sizes is more desirable, where for every incoming packet, it reads the queue size and report the ones that exceed the threshold to the monitor. Thus, one bonus task will be to enable passive monitoring for these switches. (5 points)
 
 <!-- Implement the `handle_pkt` function in the `monitor_receive.py` module, which will handle packets being received on each of the monitor's interfaces. Currently, the function just prints out the contents of each packet received. We want to extract the switch ID and queue size from each packet. We can then write these values to a CSV file with the following format:
 ```time, switch_id, queue_size```
@@ -162,6 +162,17 @@ vagrant scp default:path_to_file_on_vm destination_path_on_your_machine
 
 
 In case you tried to solve the bonus point problems, then please upload a small writeup explaining how you implemented and tested the new features. Name this write up `bonus_task.txt`
+
+# Grading Rubric
+We will assign you grades on a scale of 10.
+
+- `Task 1`: (4 points): Does your `start_mininet.py` correctly generates the topology as specified above? Here, we will check the output for the `pingall` command for your topology. See notes above to see what's the expected output for this command.
+- `Task 2`: (4 points): Does your `monitor.p4` synthesizes the packet-processing pipeline as specified above? We will read your code and follow the steps described in Task 0 (Part 2) to check if it behaves as expected. 
+- `Task 3`: (2 points): We will review the submitted graph. 
+- `Bonus tasks`: (10 points): We will read your `bonus.text` and review the changes made in `monitor.p4` to evaluate your response to the bonus questions.
+- 
+# Late Policy
+Please submit the assignment by the advertised deadline. For late submissions, we will deduct one point (out of 10) for each day post deadline. 
 
 
 
