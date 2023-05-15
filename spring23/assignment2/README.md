@@ -2,11 +2,13 @@
 
 ## Learning Objectives
 In this assignment, you will:
-1. Create Mininet topologies for prototyping a custom network monitoring solutions? (4/10)
-2. Write packet-processing pipelines for network monitoring in P4? (4/10)
-3. Analyze queue sizes and bottlenecks within a Mininet network? (2/10)
+1. Create Mininet topologies for prototyping a custom network monitoring solutions? (4/10 points)
+2. Write packet-processing pipelines for network monitoring in P4? (4/10 points)
+3. Analyze queue sizes and bottlenecks within a Mininet network? (2/10 points)
 
 This assignment builds up on topics covered in CS 176B lectures and discussion section. More specifically, it focuses on how we can use SDN tools to design experiments for network research. We will focus on network telemetry systems, which are designed to query the state of the network. In this assignment, we will specifically focus on the design of a network telemetry system that monitors the queue sizes for different switches in the network. The first part of assignment will focus on the building blocks for the network telemetry system, i.e. Mininet-based topology and the P4-based packet processing pipeline. The second part will focus on using this telemetry system to measure the state of the network under different network conditions. 
+
+There are two bonus tasks, so, in theory you can earn a max of 16/10 points in this assignment. 
 
 # Topology
 
