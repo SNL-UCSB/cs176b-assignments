@@ -166,7 +166,7 @@ For this task, use the following guidelines to update the P4 code in [switch.p4]
 * Complete the action `update_clone_metadata` such that the user-defined metadata field `meta.original_qdepth` contains the queue depth of the original packet.
 * The action `do_clone_e2e` is incomplete. This action must make a clone of the packet such that:
     * The clone session ID of the clone is 432 and,
-    * The field `meta.original_qdepth` is preserved in the cloned packet.
+    * The field `meta.original_qdepth` is preserved in the cloned packet. Hint: Use the clone3 function instead of clone. It takes one additional argument where you can specify the fields that you want to preserve.
 * In the egress pipeline,
     * If the current packet is the original packet and the queue depth is greater than or equal to the threshold `q_th`, clone the packet and update the metadata field `meta.original_qdepth`.
     * If the current packet is the cloned packet, add an `out_header` on it.
