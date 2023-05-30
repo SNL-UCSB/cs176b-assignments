@@ -75,7 +75,7 @@ def main():
     
     if len(OUT_DATA) > 1:
         # TODO: update working_dir according to your setup(if required).
-        working_dir = '/home/vagrant/cs176b-assignments/spring23/assignment2'
+        working_dir = '/home/vagrant/cs176b-assignments/spring23/assignment3'
         with open('{}/logs/switch_stats.csv'.format(working_dir), 'w') as fp:
             fp.write('\n'.join(OUT_DATA))
 
