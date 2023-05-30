@@ -1,4 +1,4 @@
-# CS 176B: Assignment 2
+# CS 176B: Assignment 3
 
 In the previous assignment, you learned how we can use probe packets to measure queue sizes in the network. In this assignment, we will learn how to enable passive monitoring of queue sizes and how to handle network congestion at runtime.
 
