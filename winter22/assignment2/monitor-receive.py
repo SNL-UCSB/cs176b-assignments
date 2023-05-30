@@ -74,7 +74,8 @@ def main():
           prn=lambda x: handle_pkt_1(x), timeout=30)
     
     if len(OUT_DATA) > 1:
-        working_dir = '/home/vagrant/cs176b-assignments/winter22/assignment2'
+        # TODO: update working_dir according to your setup(if required).
+        working_dir = '/home/vagrant/cs176b-assignments/spring23/assignment2'
         with open('{}/logs/switch_stats.csv'.format(working_dir), 'w') as fp:
             fp.write('\n'.join(OUT_DATA))
 
